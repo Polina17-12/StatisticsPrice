@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function fetchData() {
+        fetch('http://localhost:8080/api/2682580')
+            .then(function (response) {
+                if (response.status !== 200) {
+                    console.log(
+                        'Looks like there was a problem. Status Code: ' + response.status
+                    );
+                    return;
+                }
+                response.json().then(function (data) {
+                    console.log(data);
+                    //document.getElementById('w3review').value = data;
+                });
+            })
+            .catch(function (err) {
+                console.log('Fetch Error :-S', err);
+            });
+    }
+</script>
+<button onclick="fetchData()">
+    кнопка
+</button>
+</body>
+</html>

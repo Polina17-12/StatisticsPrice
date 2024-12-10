@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Детали продукта</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Функция для получения данных трендов
+    async function fetchTrends(uuid) {
+      try {
+        const response = await fetch(`/api/${uuid}`);
+        if (!response.ok) {
+          throw new Error("Ошибка при получении данных трендов.");
+        }
+        const trends = await response.json();
+
+        // Обработка данных: сортируем по дате и берём последние 15 записей
+        const sortedTrends = trends
+                .sort((a, b) => new Date(a.date) - new Date(b.date)) // Сортировка по времени
+                .slice(-15); // Берём последние 15 записей
+
+        // Создаём массивы для графика
+        const labels = sortedTrends.map(trend => new Date(trend.date).toLocaleString());
+        const prices = sortedTrends.map(trend => parseFloat(trend.price)/100);
+
+        // Рисуем график
+        renderChart(labels, prices);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+    // Функция для рендера графика
+    function renderChart(labels, prices) {
+      const ctx = document.getElementById('trendChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels, // Метки по оси X (даты)
+          datasets: [{
+            label: 'Цена',
+            data: prices, // Значения по оси Y (цены)
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 2,
+            tension: 0.4 // Скругление линий
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true
+            },
+            tooltip: {
+              enabled: true
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Время'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Цена'
+              },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    // Вызываем fetchTrends при загрузке страницы
+    document.addEventListener("DOMContentLoaded", function () {
+      const uuid = document.getElementById("uuid").value;
+      fetchTrends(uuid);
+    });
+  </script>
+</head>
+<body>
+<h1 th:text="'Продукт с UUID: ' + ${product.uuid}"></h1>
+<input type="hidden" id="uuid" th:value="${product.uuid}" />
+
+<h2>График цен:</h2>
+<canvas id="trendChart" width="800" height="400"></canvas>
+
+<a href="/products">Вернуться к списку продуктов</a>
+</body>
+</html>

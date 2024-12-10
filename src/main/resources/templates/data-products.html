@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Список продуктов</title>
+</head>
+<body>
+<h1>Список продуктов</h1>
+
+<!-- Форма для добавления нового UUID -->
+<form th:action="@{/products/add}" method="post">
+  <label for="uuid">Новый UUID:</label>
+  <input type="text" id="uuid" name="uuid" required>
+  <button type="submit">Добавить</button>
+</form>
+<div th:if="${error}" style="color: red;">
+  <p th:text="${error}"></p>
+</div>
+
+<h2>Продукты:</h2>
+<ul>
+  <!-- Проходим по списку продуктов -->
+  <li th:each="product : ${products}">
+    <!-- Ссылка на страницу с UUID -->
+    <a th:href="@{'/product/' + ${product.uuid}}" th:text="${product.uuid}"></a>
+  </li>
+</ul>
+</body>
+</html>
