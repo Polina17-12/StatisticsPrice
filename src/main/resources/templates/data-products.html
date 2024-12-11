@@ -1,26 +1,133 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <title>Список продуктов</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Список продуктов</h1>-->
+
+<!--&lt;!&ndash; Форма для добавления нового UUID &ndash;&gt;-->
+<!--<form th:action="@{/products/add}" method="post">-->
+<!--  <label for="uuid">Новый UUID:</label>-->
+<!--  <input type="text" id="uuid" name="uuid" required>-->
+<!--  <button type="submit">Добавить</button>-->
+<!--</form>-->
+<!--<div th:if="${error}" style="color: red;">-->
+<!--  <p th:text="${error}"></p>-->
+<!--</div>-->
+
+<!--<h2>Продукты:</h2>-->
+<!--<ul>-->
+<!--  &lt;!&ndash; Проходим по списку продуктов &ndash;&gt;-->
+<!--  <li th:each="product : ${products}">-->
+<!--    &lt;!&ndash; Ссылка на страницу с UUID &ndash;&gt;-->
+<!--    <a th:href="@{'/product/' + ${product.uuid}}" th:text="${product.uuid}"></a>-->
+<!--  </li>-->
+<!--</ul>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Список продуктов</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://stihi.ru/pics/2017/04/11/6318.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      color: #FFFFFF;
+    }
+    h1, h2 {
+      color: #013220;
+    }
+    form {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #A5D6A7;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #A5D6A7;
+      border-radius: 5px;
+      box-sizing: border-box;
+      color: #2E7D32;
+      background-color: #E8F5E9;
+      margin-bottom: 10px;
+    }
+    input::placeholder {
+      color: #A5D6A7;
+    }
+    input:focus {
+      border-color: #66BB6A;
+      outline: none;
+      box-shadow: 0 0 5px rgba(102, 187, 106, 0.5);
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #66BB6A;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #4CAF50;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    a {
+      color: #013220;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 <h1>Список продуктов</h1>
 
-<!-- Форма для добавления нового UUID -->
 <form th:action="@{/products/add}" method="post">
   <label for="uuid">Новый UUID:</label>
-  <input type="text" id="uuid" name="uuid" required>
+  <input type="text" id="uuid" name="uuid" placeholder="Введите новый UUID" required>
   <button type="submit">Добавить</button>
 </form>
-<div th:if="${error}" style="color: red;">
+<div th:if="${error}" class="error">
   <p th:text="${error}"></p>
 </div>
 
 <h2>Продукты:</h2>
 <ul>
-  <!-- Проходим по списку продуктов -->
   <li th:each="product : ${products}">
-    <!-- Ссылка на страницу с UUID -->
     <a th:href="@{'/product/' + ${product.uuid}}" th:text="${product.uuid}"></a>
   </li>
 </ul>

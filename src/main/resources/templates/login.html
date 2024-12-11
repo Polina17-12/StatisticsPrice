@@ -1,21 +1,125 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Авторизация</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Вход в систему</h1>-->
+<!--<form th:action="@{/login}" method="post">-->
+<!--    <div>-->
+<!--        <label for="username">Имя пользователя:</label>-->
+<!--        <input type="text" id="username" name="username" required>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="password">Пароль:</label>-->
+<!--        <input type="password" id="password" name="password" required>-->
+<!--    </div>-->
+<!--    <button type="submit">Войти</button>-->
+<!--</form>-->
+<!--<p>Нет аккаунта? <a th:href="@{/register}">Зарегистрируйтесь</a></p>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Авторизация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://stihi.ru/pics/2017/04/11/6318.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #FFFFFF;
+        }
+        form {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #FFFFFF;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #A5D6A7;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #A5D6A7;
+            border-radius: 5px;
+            box-sizing: border-box;
+            color: #2E7D32;
+            background-color: #E8F5E9;
+        }
+        input::placeholder {
+            color: #A5D6A7;
+        }
+        input:focus {
+            border-color: #66BB6A;
+            outline: none;
+            box-shadow: 0 0 5px rgba(102, 187, 106, 0.5);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #66BB6A;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #4CAF50;
+        }
+        p {
+            margin-top: 15px;
+        }
+        p a {
+            color: #A5D6A7;
+            text-decoration: none;
+        }
+        p a:hover {
+            text-decoration: underline;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-<h1>Вход в систему</h1>
 <form th:action="@{/login}" method="post">
-    <div>
+
+    <h1>Вход в систему</h1>
+    <div class="input-group">
         <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="username" placeholder="Введите имя пользователя" required>
     </div>
-    <div>
+    <div class="input-group">
         <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" placeholder="Введите пароль" required>
     </div>
     <button type="submit">Войти</button>
+    <p>Нет аккаунта? <a th:href="@{/register}">Зарегистрируйтесь</a></p>
 </form>
-<p>Нет аккаунта? <a th:href="@{/register}">Зарегистрируйтесь</a></p>
 </body>
 </html>
+
+
