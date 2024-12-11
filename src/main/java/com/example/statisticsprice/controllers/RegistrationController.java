@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @AllArgsConstructor
 @Controller
-public class Registration {
+public class RegistrationController {
     private final CustomUserDetailManagerService userService;
 
     @GetMapping("/register")

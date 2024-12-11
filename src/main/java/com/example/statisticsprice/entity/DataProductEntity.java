@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,6 +26,11 @@ public class DataProductEntity {
     @OneToMany(mappedBy = "dataProduct", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TrendEntity> trends;
 
+    @ManyToMany(mappedBy = "dataProducts")
+    private Set<UserEntity> users = new HashSet<>(); //todo связь с таблицей пользователй
 
+    public DataProductEntity(String uuid) {
+        this.uuid = uuid;
+    }
 }
 

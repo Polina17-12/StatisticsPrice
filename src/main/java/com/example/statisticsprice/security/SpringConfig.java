@@ -43,7 +43,7 @@ public class SpringConfig {
                         login.defaultSuccessUrl("/products", true)
                                 .loginPage("/login")
 
-                ).logout(logout -> logout.logoutUrl("/logout") )
+                ).logout(logout -> logout.logoutUrl("/logout").clearAuthentication(true).invalidateHttpSession(true).logoutSuccessUrl("/login") )
 //                .httpBasic(Customizer.withDefaults())
         /*.formLogin(login -> login.loginPage("/login")
                         .successForwardUrl("/").permitAll()
