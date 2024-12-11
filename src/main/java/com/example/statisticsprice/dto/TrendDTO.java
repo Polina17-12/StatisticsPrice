@@ -14,6 +14,4 @@ import java.time.LocalDateTime;
 public class TrendDTO {
     String price;
     LocalDateTime date;
-
-
 }

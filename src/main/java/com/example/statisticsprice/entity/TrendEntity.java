@@ -28,5 +28,4 @@ public class TrendEntity {
     @JoinColumn(name = "data_product_id") // Указываем внешний ключ
     private DataProductEntity dataProduct;
 
-
 }
