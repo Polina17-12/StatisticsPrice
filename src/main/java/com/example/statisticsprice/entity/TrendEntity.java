@@ -27,5 +27,4 @@ public class TrendEntity {
     @ManyToOne
     @JoinColumn(name = "data_product_id") // Указываем внешний ключ
     private DataProductEntity dataProduct;
-
 }

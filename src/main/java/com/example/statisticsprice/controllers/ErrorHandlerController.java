@@ -8,7 +8,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 @Controller
 public class ErrorHandlerController {
-
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNotFound() {

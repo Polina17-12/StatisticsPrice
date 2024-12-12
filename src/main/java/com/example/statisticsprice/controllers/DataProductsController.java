@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 public class DataProductsController {
@@ -59,8 +58,6 @@ public class DataProductsController {
         return "redirect:/products";
     }
 
-
-
     @PostMapping("/products/add")
     public String addProduct(@RequestParam String uuid, Model model, @AuthenticationPrincipal UserEntity user) {
 
@@ -98,6 +95,4 @@ public class DataProductsController {
         dbUser.get().addDataProduct(product);
         userRepo.save(dbUser.get());
     }
-
-
 }

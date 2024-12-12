@@ -40,7 +40,6 @@ public class DataUpdateService {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             // Создаем запрос GET
             HttpGet request = new HttpGet(url.replace("{ID}", Id));
-
             // Отправляем запрос и получаем ответ
             try (CloseableHttpResponse response = httpClient.execute(request)) {
                 // Проверяем статус ответа
@@ -49,7 +48,6 @@ public class DataUpdateService {
                     throw new RuntimeException("ошибка в момент запроса!");
                 }
                 String responseBody = EntityUtils.toString(response.getEntity());
-
 
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(responseBody);

@@ -36,7 +36,6 @@ public class RegistrationController {
         userService.addUser(username, password);
         return "redirect:/login";
     }
-
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         return "login";

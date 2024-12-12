@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 public class CustomUserDetailManagerService implements UserDetailsService {
-
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
 

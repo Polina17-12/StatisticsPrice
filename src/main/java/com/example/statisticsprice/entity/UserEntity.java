@@ -18,7 +18,6 @@ import java.util.Set;
 @Entity
 @Table(name = "user_entity")
 public class UserEntity implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -49,7 +48,6 @@ public class UserEntity implements UserDetails {
         this.dataProducts.remove(dataProduct);
         dataProduct.getUsers().remove(this);
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
