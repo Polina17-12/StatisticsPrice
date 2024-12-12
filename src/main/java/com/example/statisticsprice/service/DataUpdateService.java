@@ -16,30 +16,38 @@ import java.util.regex.Pattern;
 @Service
 public class DataUpdateService {
     private static final String url = "https://store.steampowered.com/api/appdetails?appids={ID}&cc=ru&filters=price_overview";
+    private static final String urlName = "https://store.steampowered.com/api/appdetails?appids={ID}&cc=ru&filters=packages";
     final String regex = "\"final\":(\\d*)";
+    final String regexName = "title\":\"Buy ([\\w ]*)";
     @Autowired
     private TrendStore trendStore;
 
-    @Scheduled(fixedRate = 1,timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
     public void dataUpdate() {
         System.out.println("Начали обновление всех списков!");
         for (String id : trendStore.getAllIds()) {
             try {
                 String newPrice = updatePrice(id);
                 trendStore.addData(id, newPrice);
-            }
-            catch (RuntimeException e) {
+            } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
         }
     }
 
-    public String updatePrice(String Id) {
-        // Создаем экземпляр клиента
+    public String updatePrice(String id) {
+        return makeRequest(id, url, regex);
+    }
+
+    public String getName(String id) {
+        return makeRequest(id, urlName, regexName);
+    }
+
+    private String makeRequest(String id, String url, String regexPattern) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             // Создаем запрос GET
-            HttpGet request = new HttpGet(url.replace("{ID}", Id));
+            HttpGet request = new HttpGet(url.replace("{ID}", id));
             // Отправляем запрос и получаем ответ
             try (CloseableHttpResponse response = httpClient.execute(request)) {
                 // Проверяем статус ответа
@@ -49,7 +57,7 @@ public class DataUpdateService {
                 }
                 String responseBody = EntityUtils.toString(response.getEntity());
 
-                Pattern pattern = Pattern.compile(regex);
+                Pattern pattern = Pattern.compile(regexPattern);
                 Matcher matcher = pattern.matcher(responseBody);
 
                 matcher.find();
@@ -60,4 +68,6 @@ public class DataUpdateService {
             throw new RuntimeException(e);
         }
     }
+
+
 }

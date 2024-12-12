@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 public class DataProductsController {
 
@@ -26,7 +25,7 @@ public class DataProductsController {
 
     @GetMapping("/products")
     public String listDataProducts(Model model, @AuthenticationPrincipal UserEntity user) {
-        var dbUser =userRepo.findByUsername(user.getUsername());
+        var dbUser = userRepo.findByUsername(user.getUsername());
         model.addAttribute("products", dbUser.get().getDataProducts());
         return "data-products";
     }
@@ -37,14 +36,14 @@ public class DataProductsController {
     }
 
     @GetMapping("/products/{uuid}")
-    public String productDetails(@PathVariable String uuid, Model model,@AuthenticationPrincipal UserEntity user) {
-        var dbUser =userRepo.findByUsername(user.getUsername());
+    public String productDetails(@PathVariable String uuid, Model model, @AuthenticationPrincipal UserEntity user) {
+        var dbUser = userRepo.findByUsername(user.getUsername());
         var dbProduct = dbUser.get().getDataProducts().stream()
                 .filter(dataProductEntity -> uuid.equals(dataProductEntity.getUuid())).findFirst();
-        if(dbProduct.isEmpty()) {
+        if (dbProduct.isEmpty()) {
 
             model.addAttribute("error", "попытка обращения к несуществующему id " + uuid);
-            return listDataProducts(model,user);
+            return listDataProducts(model, user);
         }
         model.addAttribute("product", dbProduct.get());
         return "product-details";
@@ -52,7 +51,7 @@ public class DataProductsController {
 
     @PostMapping("/products/delete")
     public String productDetailsDelete(@RequestParam String uuid, @AuthenticationPrincipal UserEntity user) {
-        var dbUser =userRepo.findByUsername(user.getUsername());
+        var dbUser = userRepo.findByUsername(user.getUsername());
         dbUser.get().getDataProducts().removeIf(dataProduct -> dataProduct.getUuid().equals(uuid));
         userRepo.save(dbUser.get());
         return "redirect:/products";
@@ -68,8 +67,9 @@ public class DataProductsController {
             return listDataProducts(model, user);
         }
 
+        String gameName = "";
         try {
-            dataUpdateService.updatePrice(uuid);
+            gameName = dataUpdateService.getName(uuid);
         } catch (RuntimeException e) {
             // Если при обновлении произошла ошибка, отобразим её пользователю
             model.addAttribute("error", "Не удалось проверить валидность id. Он не будет добавлен");
@@ -78,7 +78,7 @@ public class DataProductsController {
         }
 
         // Если всё прошло успешно, сохраняем новый продукт
-        addNewProductToUser(uuid, user);
+        addNewProductToUser(uuid, gameName, user);
         return "redirect:/products";
     }
 
@@ -88,9 +88,9 @@ public class DataProductsController {
         userRepo.save(dbUser.get());
     }
 
-    private void addNewProductToUser(String uuid, UserEntity user) {
+    private void addNewProductToUser(String uuid, String gameName, UserEntity user) {
         var dbUser = userRepo.findByUsername(user.getUsername());
-        var product = new DataProductEntity(uuid);
+        var product = new DataProductEntity(uuid, gameName);
         dataProductRepository.save(product);
         dbUser.get().addDataProduct(product);
         userRepo.save(dbUser.get());

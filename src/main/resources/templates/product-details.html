@@ -125,7 +125,7 @@
   </script>
 </head>
 <body>
-<h1 th:text="'Продукт с UUID: ' + ${product.uuid}"></h1>
+<h1 th:text="'Игра ' + ${product.getName()}"></h1>
 <input type="hidden" id="uuid" th:value="${product.uuid}" />
 
 <h2>График цен:</h2>

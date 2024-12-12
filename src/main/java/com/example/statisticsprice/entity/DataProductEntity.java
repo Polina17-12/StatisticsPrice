@@ -21,6 +21,8 @@ public class DataProductEntity {
     //волшебные цифры в стиме
     @Column(nullable = false, unique = true)
     private String uuid;
+    @Column(nullable = false)
+    private String name;
 
     @OneToMany(mappedBy = "dataProduct", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TrendEntity> trends;
@@ -28,8 +30,9 @@ public class DataProductEntity {
     @ManyToMany(mappedBy = "dataProducts")
     private Set<UserEntity> users = new HashSet<>(); //todo связь с таблицей пользователй
 
-    public DataProductEntity(String uuid) {
+    public DataProductEntity(String uuid, String name) {
         this.uuid = uuid;
+        this.name = name;
     }
 }
 
