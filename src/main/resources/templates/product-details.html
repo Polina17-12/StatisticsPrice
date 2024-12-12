@@ -16,7 +16,7 @@
       color: #FFFFFF;
     }
     h1, h2 {
-      color: #FFFFFF;
+      color: #185a37;
     }
     canvas {
       margin: 20px 0;
@@ -28,16 +28,37 @@
       color: #A5D6A7;
       text-decoration: none;
       font-size: 18px;
-      margin-top: 20px;
+      margin-right: 20px;
     }
     a:hover {
       text-decoration: underline;
+    }
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .buttons-container a, .buttons-container button {
+      background-color: #A5D6A7;
+      color: white;
+      font-size: 18px;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    .buttons-container button {
+      background-color: #F44336;
+    }
+    .buttons-container a:hover, .buttons-container button:hover {
+      opacity: 0.8;
     }
   </style>
   <script>
     async function fetchTrends(uuid) {
       try {
-        const response = await fetch(/api/${uuid});
+        const response = await fetch(`/api/${uuid}`);
         if (!response.ok) {
           throw new Error("Ошибка при получении данных трендов.");
         }
@@ -62,8 +83,8 @@
           datasets: [{
             label: 'Цена',
             data: prices,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(250, 4, 30, 1)',
+            backgroundColor: 'rgba(250, 4, 30, 0.2)',
             borderWidth: 2,
             tension: 0.4
           }]
@@ -110,10 +131,13 @@
 <h2>График цен:</h2>
 <canvas id="trendChart" width="800" height="400"></canvas>
 
-<a href="/products">Вернуться к списку продуктов</a>
-<form class="delete-form" th:action="@{/products/delete}" method="post">
-  <input type="hidden" name="uuid" th:value="${product.uuid}" />
-  <button type="submit">Удалить продукт</button>
-</form>
+<div class="buttons-container">
+  <a href="/products">Вернуться на главную</a>
+  <form class="delete-form" th:action="@{/products/delete}" method="post">
+    <input type="hidden" name="uuid" th:value="${product.uuid}" />
+    <button type="submit">Удалить продукт</button>
+  </form>
+</div>
+
 </body>
 </html>

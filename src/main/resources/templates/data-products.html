@@ -1,31 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--  <title>Список продуктов</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Список продуктов</h1>-->
-
-<!--&lt;!&ndash; Форма для добавления нового UUID &ndash;&gt;-->
-<!--<form th:action="@{/products/add}" method="post">-->
-<!--  <label for="uuid">Новый UUID:</label>-->
-<!--  <input type="text" id="uuid" name="uuid" required>-->
-<!--  <button type="submit">Добавить</button>-->
-<!--</form>-->
-<!--<div th:if="${error}" style="color: red;">-->
-<!--  <p th:text="${error}"></p>-->
-<!--</div>-->
-
-<!--<h2>Продукты:</h2>-->
-<!--<ul>-->
-<!--  &lt;!&ndash; Проходим по списку продуктов &ndash;&gt;-->
-<!--  <li th:each="product : ${products}">-->
-<!--    &lt;!&ndash; Ссылка на страницу с UUID &ndash;&gt;-->
-<!--    <a th:href="@{'/product/' + ${product.uuid}}" th:text="${product.uuid}"></a>-->
-<!--  </li>-->
-<!--</ul>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -41,6 +13,7 @@
       align-items: center;
       padding: 20px;
       color: #FFFFFF;
+      position: relative;
     }
     h1, h2 {
       color: #013220;
@@ -104,24 +77,40 @@
       margin-bottom: 10px;
     }
     a {
-      color: #013220;
+      color: #185a37;
       text-decoration: none;
       font-size: 18px;
     }
     a:hover {
       text-decoration: underline;
     }
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #66BB6A;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      text-decoration: none;
+    }
+    .logout-btn:hover {
+      background-color: #4CAF50;
+    }
   </style>
 </head>
 <body>
+<a href="/logout" class="logout-btn">Выйти</a>
+
 <h1>Список продуктов</h1>
-<a href="/logout">Выйти</a>
 
 <form th:action="@{/products/add}" method="post">
   <label for="uuid">Новый UUID:</label>
   <input type="text" id="uuid" name="uuid" placeholder="Введите новый UUID" required>
   <button type="submit">Добавить</button>
 </form>
+
 <div th:if="${error}" class="error">
   <p th:text="${error}"></p>
 </div>
@@ -134,3 +123,4 @@
 </ul>
 </body>
 </html>
+
