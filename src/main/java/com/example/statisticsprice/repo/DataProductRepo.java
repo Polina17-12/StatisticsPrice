@@ -8,4 +8,4 @@ import java.util.Optional;
 @Repository
 public interface DataProductRepo extends JpaRepository<DataProductEntity, Integer> {
     Optional<DataProductEntity> findByUuid(String uuid);
-    }
+}

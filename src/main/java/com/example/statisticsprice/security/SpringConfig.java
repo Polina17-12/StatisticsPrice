@@ -43,15 +43,10 @@ public class SpringConfig {
                         login.defaultSuccessUrl("/products", true)
                                 .loginPage("/login")
 
-                ).logout(logout -> logout.logoutUrl("/logout").clearAuthentication(true).invalidateHttpSession(true).logoutSuccessUrl("/login") )
-//                .httpBasic(Customizer.withDefaults())
-        /*.formLogin(login -> login.loginPage("/login")
-                        .successForwardUrl("/").permitAll()
-
-                )*/;
+                ).logout(logout ->
+                        logout.logoutUrl("/logout").clearAuthentication(true).invalidateHttpSession(true).logoutSuccessUrl("/login") );
         return http.build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
