@@ -103,7 +103,7 @@
 <body>
 <a href="/logout" class="logout-btn">Выйти</a>
 
-<h1>Список продуктов</h1>
+<h1>Список игр</h1>
 
 <form th:action="@{/products/add}" method="post">
   <label for="uuid">Новый UUID:</label>
@@ -115,7 +115,7 @@
   <p th:text="${error}"></p>
 </div>
 
-<h2>Продукты:</h2>
+<h2>Отслеживаемые игры:</h2>
 <ul>
   <li th:each="product : ${products}">
     <a th:href="@{'/products/' + ${product.uuid}}" th:text="${product.getName()}"></a>

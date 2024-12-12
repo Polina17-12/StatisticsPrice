@@ -42,6 +42,6 @@ public class ORMTrendStore implements TrendStore {
 
     @Override
     public List<String> getAllIds() {
-        return dataProductRepo.findAll().stream().map(e -> e.getUuid()).collect(Collectors.toList());
+        return dataProductRepo.findAll().stream().map(e -> e.getUuid()).collect(Collectors.toList()); // по всем пройтись и запросить новое значение цены
     }
 }

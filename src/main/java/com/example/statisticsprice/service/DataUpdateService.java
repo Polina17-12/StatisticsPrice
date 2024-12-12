@@ -22,7 +22,7 @@ public class DataUpdateService {
     @Autowired
     private TrendStore trendStore;
 
-    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedRate = 2, timeUnit = TimeUnit.DAYS) //по расписанию
     public void dataUpdate() {
         System.out.println("Начали обновление всех списков!");
         for (String id : trendStore.getAllIds()) {
@@ -56,18 +56,14 @@ public class DataUpdateService {
                     throw new RuntimeException("ошибка в момент запроса!");
                 }
                 String responseBody = EntityUtils.toString(response.getEntity());
-
-                Pattern pattern = Pattern.compile(regexPattern);
-                Matcher matcher = pattern.matcher(responseBody);
-
-                matcher.find();
-                return matcher.group(1);
+                Pattern pattern = Pattern.compile(regexPattern); //подготавливаем регекс
+                Matcher matcher = pattern.matcher(responseBody); //ответ с сервера апи
+                matcher.find(); //находим значение
+                return matcher.group(1); //достаем нужное значение
 
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
-
 }

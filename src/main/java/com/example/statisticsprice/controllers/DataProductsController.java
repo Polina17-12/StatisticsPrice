@@ -41,7 +41,6 @@ public class DataProductsController {
         var dbProduct = dbUser.get().getDataProducts().stream()
                 .filter(dataProductEntity -> uuid.equals(dataProductEntity.getUuid())).findFirst();
         if (dbProduct.isEmpty()) {
-
             model.addAttribute("error", "попытка обращения к несуществующему id " + uuid);
             return listDataProducts(model, user);
         }
@@ -69,7 +68,7 @@ public class DataProductsController {
 
         String gameName = "";
         try {
-            gameName = dataUpdateService.getName(uuid);
+            gameName = dataUpdateService.getName(uuid);//обращение к API
         } catch (RuntimeException e) {
             // Если при обновлении произошла ошибка, отобразим её пользователю
             model.addAttribute("error", "Не удалось проверить валидность id. Он не будет добавлен");

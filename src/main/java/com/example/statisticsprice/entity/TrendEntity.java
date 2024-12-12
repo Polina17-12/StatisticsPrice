@@ -15,14 +15,13 @@ public class TrendEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    String price;
+    LocalDateTime date;
 
     public TrendEntity(String price, LocalDateTime date) {
         this.price = price;
         this.date = date;
     }
-
-    String price;
-    LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "data_product_id") // Указываем внешний ключ

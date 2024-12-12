@@ -1,4 +1,15 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_container
+    ports:
+      - "8090:8080"
+    networks:
+      - my_network
+    depends_on:
+      - postgresql
   postgresql:
     image: postgres:16
     ports:
@@ -10,10 +21,11 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql/data
     networks:
-      - backend
+      - my_network
 
 volumes:
   postgresql: { }
 
 networks:
-  backend: { }
+  my_network:
+    driver: bridge
